@@ -1,32 +1,22 @@
 package org.example;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FilenameFilter;
 
-public class MyFileFilter implements FilenameFilter {
-    private File dir;
+public class MyFileFilter implements FileFilter {
     private String extension;
-
-    public MyFileFilter(File dir, String extension) {
-        this.dir = dir;
+    public MyFileFilter(String extension) {
         this.extension = extension;
     }
 
     @Override
-    public boolean accept(File dir, String extension) {
-         String[] listFileName = dir.list();
-        for (String faleNames:listFileName) {
-             String[] split = faleNames.split(".");
-             if(split[1].equals(extension)){
-                 return true;
-             }else {
-                 return  false;
-             }
+    public boolean accept(File file) {
+        String[] split = file.getName().split("\\.");
+        if (split[1].equals(this.extension)) {
+            return true;
+        } else {
+            return false;
         }
-        return  false;
-
     }
-
-
-
 }
